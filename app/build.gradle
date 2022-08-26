@@ -1,0 +1,11 @@
+plugins {
+    id "java"
+    id "org.springframework.boot" version "2.7.3"
+}
+
+group "fr.thoun"
+
+dependencies {
+    runtimeOnly project(":frontend")
+    runtimeOnly project(":backend")
+}
