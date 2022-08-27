@@ -1,0 +1,50 @@
+plugins {
+  id "java"
+  id "com.github.node-gradle.node" version "3.0.1"
+}
+
+repositories {
+  ivy {
+    name = 'Node.js'
+    setUrl('https://nodejs.org/dist')
+    patternLayout {
+      artifact("v[revision]/[artifact](-v[revision]-[classifier]).[ext]")
+    }
+    metadataSources {
+      artifact()
+    }
+    content {
+      includeModule("org.nodejs", "node")
+    }
+  }
+}
+
+task buildAngularApp(type: NpxTask) {
+  dependsOn npmInstall
+  command = 'ng'
+  args = ['build']
+  inputs.files('package.json', 'package-lock.json', 'angular.json', 'tsconfig.json', 'tsconfig.app.json')
+  inputs.dir('src')
+  inputs.dir(fileTree('node_modules').exclude('.cache'))
+  outputs.dir('dist')
+}
+
+task startAngularApp(type: NpxTask) {
+  dependsOn npmInstall
+  command = 'ng'
+  args = ['serve']
+  inputs.files('package.json', 'package-lock.json', 'angular.json', 'tsconfig.json', 'tsconfig.app.json')
+  inputs.dir('src')
+  inputs.dir(fileTree('node_modules').exclude('.cache'))
+  outputs.dir('dist')
+}
+
+jar {
+  dependsOn('buildAngularApp')
+  from 'dist/frontend' into 'static'
+}
+
+node {
+  download = true
+  distBaseUrl = null
+}

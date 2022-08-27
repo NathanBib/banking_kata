@@ -6,3 +6,4 @@
 /gradle/
 /.idea/
 /backend/build/
+/frontend/.gradle/nodejs/node-v14.15.4-darwin-x64/
