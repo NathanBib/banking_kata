@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
+import {Name} from "../types/name";
 
 @Injectable()
 export class AccountService {
@@ -11,7 +12,7 @@ export class AccountService {
   }
 
   getTest() {
-    return "test";
-    //return this.http.get<string>("/api/account/test");
+    //return "test";
+    return this.http.get<Name>("/api/account/test/");
   }
 }

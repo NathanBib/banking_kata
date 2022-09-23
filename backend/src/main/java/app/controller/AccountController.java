@@ -2,10 +2,12 @@ package app.controller;
 
 import domain.Account;
 import domain.CurrentDateTimeProvider;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/account")
@@ -15,14 +17,17 @@ public class AccountController {
 
     Account testAccount = new Account("Titi", "duVésinet", CurrentDateTimeProvider.create());
 
-    @GetMapping("/statement/")
+    @GetMapping("/statement")
     public void getStatement() {
         System.out.println("pouet");
     }
 
     @GetMapping("/test")
-    public String getTest() {
-        return testAccount.getFirstName() + testAccount.getLastName();
+    public ResponseEntity<NameDto> getTest() {
+        return ResponseEntity.of(Optional.of(new NameDto(
+                testAccount.getFirstName() + testAccount.getLastName())
+                )
+        );
     }
 
     @PostMapping("/create-account")

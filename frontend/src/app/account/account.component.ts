@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {AccountService} from "../service/account.service";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-account',
@@ -18,7 +17,7 @@ export class AccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.accountService.get().then();
-    this.test = this.accountService.getTest();
+    this.accountService.getTest().subscribe(value => this.test = value.fullName);
   }
 
 }
