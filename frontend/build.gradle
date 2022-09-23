@@ -32,7 +32,7 @@ task buildAngularApp(type: NpxTask) {
 task startAngularApp(type: NpxTask) {
   dependsOn npmInstall
   command = 'ng'
-  args = ['serve']
+  args = ['serve', '--proxy-config', 'src/proxy.conf.json']
   inputs.files('package.json', 'package-lock.json', 'angular.json', 'tsconfig.json', 'tsconfig.app.json')
   inputs.dir('src')
   inputs.dir(fileTree('node_modules').exclude('.cache'))

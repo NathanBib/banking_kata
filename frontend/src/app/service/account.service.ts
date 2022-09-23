@@ -7,6 +7,11 @@ export class AccountService {
   }
 
   get() {
-    return this.http.get("http://localhost:8080/api/account/statement/").toPromise();
+    return this.http.get("/api/account/statement/").toPromise();
+  }
+
+  getTest() {
+    return "test";
+    //return this.http.get<string>("/api/account/test");
   }
 }
